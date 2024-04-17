@@ -1,1 +1,46 @@
-/* I think I want the navbar to be on the top this time. */
+@import url('./css/SearchBarStyles.css');
+@import url('./css/CreatePostStyles.css');
+
+/* NAVBAR STYLES */
+
+#main-navbar {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: #023436;
+
+    width: 100%;
+    height: 9dvh;
+
+    overflow: hidden;
+}
+
+#main-navbar .navbar-links {
+    color: #fffcf2;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+#main-navbar #main-home-link {
+    text-transform: uppercase;
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+
+/* MAIN BODY STYLES */
+
+#main-body {
+    background-color: #dbe9ee;
+
+    min-height: 100dvh;
+    margin-top: 9dvh;
+}

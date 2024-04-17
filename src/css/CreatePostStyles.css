@@ -1,0 +1,10 @@
+#create-post-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#create-post-form-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
