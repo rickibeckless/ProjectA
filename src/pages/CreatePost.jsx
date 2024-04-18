@@ -15,24 +15,24 @@ export function CreatePost() {
 
     const navigate = useNavigate();
 
-    const handleUrlChange = (e) => {
-        setUrl(e.target.value);
-        setImageUrl(e.target.value);
-    };
-
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
-        const reader = new FileReader();
-        reader.onload = () => {
-            setImageUrl(reader.result);
-        };
-        reader.readAsDataURL(e.target.files[0]);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data, error } = await supabase.from('Posts').insert([{ username, title, content, media, file, url, passcode }]);
+            let fileData = null;
+            if (file) {
+                fileData = await convertFileToBase64(file);
+            }
+
+            const { data, error } = await supabase.from('Posts').insert([{ 
+                username, 
+                title, 
+                content, 
+                media, 
+                file: fileData, 
+                url, 
+                passcode 
+            }]);
+
             if (error) {
                 throw error;
             }
@@ -50,6 +50,19 @@ export function CreatePost() {
 
         navigate('/');
     };
+
+    const convertFileToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                resolve(reader.result.split(',')[1]);
+            };
+            reader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };    
 
     const handleMediaChange = (e) => {
         if (media != "null") {
@@ -94,7 +107,7 @@ export function CreatePost() {
                         {media === 'file' && (
                             <div>
                                 <label htmlFor="post-image">Post Image</label>
-                                <input type="file" accept="image/*" id="post-image" onChange={(e) => {
+                                <input type="file" accept="image/*" id="post-image" className="post-img" onChange={(e) => {
                                     setFile(e.target.files[0]);
                                     const reader = new FileReader();
                                     reader.onload = () => {
@@ -107,7 +120,7 @@ export function CreatePost() {
                         {media === 'url' && (
                             <div>
                                 <label htmlFor="post-url">Post URL</label>
-                                <input type="url" id="post-url" value={url} onChange={(e) => {
+                                <input type="url" id="post-url" className="post-img" value={url} onChange={(e) => {
                                     setUrl(e.target.value);
                                     setImageUrl(e.target.value);
                                 }} placeholder="Image URL" />

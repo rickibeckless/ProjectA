@@ -1,0 +1,31 @@
+.post-card-holder {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.post-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+
+    background-color: #f2fffa;
+    border: 2px solid black;
+
+    width: 50vw;
+    min-height: 40vh;
+    max-height: 80vh;
+    overflow-y: scroll;
+
+    margin: 2%;
+    padding: 2%;
+}
+
+.post-img {
+    min-width: 40vh;
+    max-width: 90%;
+    height: 40vh;
+}

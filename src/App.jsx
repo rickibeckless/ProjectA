@@ -3,6 +3,8 @@ import { createClient } from '@supabase/supabase-js';
 import { Home } from './pages/Home';
 import { CreatePost } from './pages/CreatePost';
 import SearchBar from './components/SearchBar';
+import { Post } from './pages/Post';
+import { EditPost } from './pages/EditPost';
 import { NotFound } from './pages/NotFound';
 import './App.css'
 
@@ -17,13 +19,15 @@ function App() {
             <nav id="main-navbar">
                 <Link to="/" className="navbar-links" id="main-home-link">Project A</Link>
                 <SearchBar />
-                <Link to="/create-post" className="navbar-links">Create Post</Link>
+                <Link to="/new" className="navbar-links">Create Post</Link>
             </nav>
 
             <div id="main-body">
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/create-post" element={<CreatePost />} />
+                    <Route path="/:id/*" element={<Post />} />
+                    <Route path="/new" element={<CreatePost />} />
+                    <Route path="/:id/edit" element={<EditPost />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>                
             </div>

@@ -4,14 +4,16 @@ import { supabase } from '../App';
 import axios from 'axios';
 import PostCard from '../components/PostCard';
 
-export function Home() {
+export function EditPost () {
 
     return (
         <>
-            <h1 className="page-title">Project A</h1>
+            <h1 className="page-title">Edit Post</h1>
             <p className="page-summary" id="home-page-summary"></p>
 
-            <PostCard />
+            <div className="posts-holder">
+                <PostCard />
+            </div>
         </>
     )
 };
