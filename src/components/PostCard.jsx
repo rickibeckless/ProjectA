@@ -98,12 +98,8 @@ const PostCard = () => {
                         <p>Upvotes: {post.upvotes}</p>
                         <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
                     </div>
-                    <div className="post-edit-btns">
-                        <button className="edit-btn">Edit</button>
-                    </div>                        
                 </div>
             ))}
-
         </div>
     );
 };
