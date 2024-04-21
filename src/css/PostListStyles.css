@@ -15,6 +15,15 @@
     grid-template-columns: 3fr 1fr;
 
     width: 65vw;
+    min-height: 40vh;
+    max-height: 80vh;
+    overflow-y: scroll;
+
+    margin: 2%;
+}
+
+.post-comment-holder.default {
+    grid-template-columns: 1fr;
 }
 
 .post-card {
@@ -27,12 +36,11 @@
     background-color: #f2fffa;
     border: 2px solid black;
 
-    /*width: 50vw;*/
     min-height: 40vh;
     max-height: 80vh;
     overflow-y: scroll;
 
-    margin: 2%;
+    margin: 0 2%;
     padding: 2%;
 }
 
@@ -40,4 +48,20 @@
     min-width: 40vh;
     max-width: 90%;
     height: 40vh;
+}
+
+.post-comment-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+
+    background-color: #f2fffa;
+    border: 2px solid black;
+
+    overflow-y: scroll;
+
+    margin: 2%;
+    padding: 2%;
 }

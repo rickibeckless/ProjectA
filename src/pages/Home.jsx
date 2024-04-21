@@ -27,8 +27,21 @@ export function Home() {
                 
                 if (sortBy === 'sort_date') {
                     query = query.order('created_at', { ascending: false });
-                } else {
+                } else if (sortBy === 'sort_votes') {
                     query = query.order('upvotes', { ascending: false });
+                } else if (sortBy === 'sort_comments') {
+                    const postsWithCommentCount = await Promise.all(
+                        (await query).data.map(async post => {
+                            const commentCount = (await supabase.from('Comments').select('id').eq('post_id', post.id)).data.length;
+                            return { ...post, commentCount };
+                        })
+                    );
+        
+                    postsWithCommentCount.sort((a, b) => b.commentCount - a.commentCount);
+        
+                    setPost(postsWithCommentCount);
+                    
+                    return;
                 }
                 
                 const { data, error } = await query;
@@ -129,6 +142,7 @@ export function Home() {
                 <select id="sort-list" value={sortBy} onChange={handleSortChange}>
                     <option value="sort_date">post date</option>
                     <option value="sort_votes">vote count</option>
+                    <option value="sort_comments">comment count</option>
                 </select>
 
                 <label htmlFor="view-style">View: </label>
@@ -141,7 +155,7 @@ export function Home() {
             {viewStyle === 'default-view' ? (
                 <div className="post-card-holder">
                     {post.slice().map(post => (
-                        <div key={post.id} className="post-comment-holder">
+                        <div key={post.id} className="post-comment-holder default">
                             <Link to={`/${post.id}/${encodeURIComponent(post.title)}`}>
                                 <div className="post-card" key={post.id}>
                                     <div className="post-card-heading">

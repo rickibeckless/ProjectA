@@ -4,7 +4,7 @@ Submitted by: **Ricki Beckless**
 
 This web app: **insert description**
 
-Time spent: **26** hours spent in total
+Time spent: **27** hours spent in total
 
 ## Required Features
 
@@ -27,7 +27,7 @@ The following **optional** features are implemented:
 - [X] Users can only edit and deleted posts or delete comments by entering the secret key, which is set by the user during post creation
 - [ ] Upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them.
 - [ ] Users can repost a previous post by referencing its post ID. On the post page of the new post, the referenced post is displayed and linked, creating a thread
-- [ ] Users can customize the interface of the web app
+- [X] Users can customize the interface of the web app
 - [ ] Users can share and view web videos
 - [ ] Users can set flags while creating a post. Then users can filter posts by flags on the home feed.
 - [X] Users can upload images directly from their local machine as an image file
@@ -36,6 +36,7 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 * [X] Users can view either the default post cards with only the basics, or the extended view which has more post details.
+* [X] Users can sort posts by comment count.
 
 ## Video Walkthrough
 
