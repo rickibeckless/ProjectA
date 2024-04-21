@@ -7,6 +7,7 @@ export function EditPost () {
 
     const { id } = useParams();
     const [post, setPost] = useState([]);
+    const [comment, setComment] = useState([]);
     const [PassCode, setPassCode] = useState(false);
 
     const navigate = useNavigate();
@@ -41,8 +42,24 @@ export function EditPost () {
         }
     };
 
+    const fetchComment = async () => {
+        try {
+            const { data: commentData, error: commentError } = await supabase
+                .from('Comments')
+                .select('*')
+                .eq('post_id', id);
+            if (commentError) {
+                throw commentError;
+            }
+            setComment(commentData);
+        } catch (error) {
+            console.error("Error fetching posts:", error.message);
+        }
+    };
+
     useEffect(() => {
         fetchPost();
+        fetchComment();
     }, [supabase, id]);
 
     useEffect(() => {
@@ -107,6 +124,19 @@ export function EditPost () {
         }
     };
 
+    const handleCommentDelete = async (commentId) => {
+        try {
+            const { error } = await supabase.from('Comments').delete().eq('id', commentId);
+            if (error) {
+                throw error;
+            }
+            console.log("Comment deleted successfully");
+            await fetchComment();
+        } catch (error) {
+            console.error("Error deleting comment:", error.message);
+        }
+    };
+
     return (
         <>
             <h1 className="page-title">Edit {post.title}</h1>
@@ -140,6 +170,19 @@ export function EditPost () {
                 <button type="submit" id="edit-post-button" onClick={handleUpdate}>Update Post</button>
                 <button type="button" id="delete-post-button" onClick={handleDelete}>Delete Post</button>
             </form>
+
+            <div className={`post-comments ${PassCode ? '' : 'no-passcode'}`}>
+                <p className="comment-count">{comment?.length} Total Comments</p>
+                <div className="comment-holder">
+                    {comment?.map(index => (
+                        <div key={index.id} className="comment">
+                            <h4 className="comment-user">{index.comment_username}</h4>
+                            <p className="comment-content">{index.comment_content}</p>
+                            <button type="button" id="delete-comment-button" onClick={() => handleCommentDelete(index.id)}>Delete Comment</button>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </>
     )
 };

@@ -10,6 +10,7 @@ export function Home() {
     const [post, setPost] = useState([]);
     const [comment, setComment] = useState([]);
     const [sortBy, setSortBy] = useState('sort_date');
+    const [viewStyle, setViewStyle] = useState('default-view');
 
     const location = useLocation();
     const [searchResults, setSearchResults] = useState([]);
@@ -89,6 +90,10 @@ export function Home() {
         setSortBy(e.target.value);
     };
 
+    const handleViewChange = (e) => {
+        setViewStyle(e.target.value);
+    };
+
     const handleCommentUpdate = async () => {
         try {
             const { data: commentData, error: commentError } = await supabase
@@ -119,54 +124,84 @@ export function Home() {
                 </div>
             )}
 
-            <div className="post-card-holder">
-                <div>
-                    <label htmlFor="sort-list">Sort by: </label>
-                    <select id="sort-list" value={sortBy} onChange={handleSortChange}>
-                        <option value="sort_date">post date</option>
-                        <option value="sort_votes">vote count</option>
-                    </select>
-                </div>
-                {post.slice().map(post => (
-                    <div key={post.id} className="post-comment-holder">
-                        <Link to={`/${post.id}/${encodeURIComponent(post.title)}`}>
-                            <div className="post-card" key={post.id}>
-                                <div className="post-card-heading">
-                                    <p className="post-user">{post?.username}</p>
-                                    <p className="date-posted">{formatDate(post.created_at)}</p>
-                                    <p className="time-posted">{formatTime(post.created_at)}</p>
-                                </div>
-                                <div className="post-content">
-                                    <h3 className="post-title">{post.title}</h3>
+            <div>
+                <label htmlFor="sort-list">Sort by: </label>
+                <select id="sort-list" value={sortBy} onChange={handleSortChange}>
+                    <option value="sort_date">post date</option>
+                    <option value="sort_votes">vote count</option>
+                </select>
 
-                                    {post?.media === "file" && (
-                                        <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-img" />
-                                    )}
-                                    {post?.media === "url" && (
-                                        <img src={post?.url} alt="post card image" className="post-img" />
-                                    )}
-
-                                    <p className="post-text">{post.content}</p>
-                                </div>
-                                <div className="post-votes">
-                                    <p>Upvotes: {post.upvotes}</p>
-                                    <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
-                                </div>
-                                <p>Comments: {comment.filter(c => c.post_id === post.id).length}</p>
-                            </div>
-                        </Link>
-                        <div className="post-comment-display">
-                            {comment.filter(c => c.post_id === post.id).map(index => (
-                                <div key={index.id} className="comment">
-                                    <h4 className="comment-user">{index.comment_username}</h4>
-                                    <p className="comment-content">{index.comment_content}</p>
-                                </div>
-                            ))}
-                            <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} />
-                        </div>
-                    </div>
-                ))}
+                <label htmlFor="view-style">View: </label>
+                <select id="view-style" value={viewStyle} onChange={handleViewChange}>
+                    <option value="default-view">Default View</option>
+                    <option value="expanded-view">Expanded View</option>
+                </select>
             </div>
+
+            {viewStyle === 'default-view' ? (
+                <div className="post-card-holder">
+                    {post.slice().map(post => (
+                        <div key={post.id} className="post-comment-holder">
+                            <Link to={`/${post.id}/${encodeURIComponent(post.title)}`}>
+                                <div className="post-card" key={post.id}>
+                                    <div className="post-card-heading">
+                                        <p className="date-posted">{formatDate(post.created_at)}</p>
+                                        <p className="time-posted">{formatTime(post.created_at)}</p>
+                                    </div>
+                                    <div className="post-content">
+                                        <h3 className="post-title">{post.title}</h3>
+                                    </div>
+                                    <div className="post-votes">
+                                        <p>Upvotes: {post.upvotes}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div className="post-card-holder">
+                    {post.slice().map(post => (
+                        <div key={post.id} className="post-comment-holder">
+                            <Link to={`/${post.id}/${encodeURIComponent(post.title)}`}>
+                                <div className="post-card" key={post.id}>
+                                    <div className="post-card-heading">
+                                        <p className="post-user">{post?.username}</p>
+                                        <p className="date-posted">{formatDate(post.created_at)}</p>
+                                        <p className="time-posted">{formatTime(post.created_at)}</p>
+                                    </div>
+                                    <div className="post-content">
+                                        <h3 className="post-title">{post.title}</h3>
+
+                                        {post?.media === "file" && (
+                                            <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-img" />
+                                        )}
+                                        {post?.media === "url" && (
+                                            <img src={post?.url} alt="post card image" className="post-img" />
+                                        )}
+
+                                        <p className="post-text">{post.content}</p>
+                                    </div>
+                                    <div className="post-votes">
+                                        <p>Upvotes: {post.upvotes}</p>
+                                        <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
+                                    </div>
+                                    <p>Comments: {comment.filter(c => c.post_id === post.id).length}</p>
+                                </div>
+                            </Link>
+                            <div className="post-comment-display">
+                                {comment.filter(c => c.post_id === post.id).map(index => (
+                                    <div key={index.id} className="comment">
+                                        <h4 className="comment-user">{index.comment_username}</h4>
+                                        <p className="comment-content">{index.comment_content}</p>
+                                    </div>
+                                ))}
+                                <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} />
+                            </div>
+                        </div>
+                    ))}
+                </div>                
+            )}
         </>
     )
 };
