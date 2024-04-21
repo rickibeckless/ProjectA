@@ -13,7 +13,6 @@ export function Home() {
 
     useEffect(() => {
         const newSearchResults = location.state ? location.state.searchResults : [];
-
         setSearchResults(newSearchResults);
     }, [location.state]);
 

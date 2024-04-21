@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Routes, Route, useParams } from 'react-router-dom';
+import { Link, Routes, Route, useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../App';
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const SearchBar = () => {
@@ -10,8 +9,11 @@ const SearchBar = () => {
     let [searchInput, setSearchInput] = useState('');
     let [postResults, setPostResults] = useState([]);
     const navigate = useNavigate();
+    const [searchPerformed, setSearchPerformed] = useState(false);
 
-    useEffect(() => {        
+    useEffect(() => {
+        if (!searchPerformed) return;
+
         const searchPost = async () => {
             try {
                 if (searchInput && searchInput.length >= 1) {
@@ -38,10 +40,11 @@ const SearchBar = () => {
         const debounceSearch = setTimeout(searchPost, 300);
 
         return () => clearTimeout(debounceSearch);
-    }, [supabase, searchInput, id]);
+    }, [supabase, searchInput, id, searchPerformed]);
 
     const handleSearch = (e) => {
         setSearchInput(e.target.value);
+        setSearchPerformed(true);
     };
 
     const handleSubmit = async (e) => {
@@ -59,8 +62,8 @@ const SearchBar = () => {
         <>
 
             <form id="search-form" onSubmit={handleSubmit}>
-                <label htmlFor="search-input" id="search-label">Search for a post</label>
-                <input type="search" id="search-input" placeholder="Search for a post..." onChange={handleSearch} />
+                <label htmlFor="search-input" id="search-label">Search for post</label>
+                <input type="search" id="search-input" placeholder="Search for post..." onChange={handleSearch} />
                 <button type="submit" id="search-button">Go</button>
             </form>
 

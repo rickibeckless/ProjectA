@@ -28,6 +28,14 @@ export function Post () {
         fetchPost();
     }, [supabase, id]);
 
+    useEffect(() => {
+        document.title = `Project A | ${post.title}`;
+
+        return () => {
+            document.title = 'Project A';
+        };
+    }, [post.title]);
+
     const formatDate = (isoDate) => {
         const date = new Date(isoDate);
         return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric',  });
@@ -74,13 +82,19 @@ export function Post () {
                 <p>Posted by {post.username} on {formatDate(post.created_at)} at {formatTime(post.created_at)}</p>
                 <h3>{post.title}</h3>
                 <p>{post.content}</p>
+                {post?.media === "file" && (
+                    <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-img" />
+                )}
+                {post?.media === "url" && (
+                    <img src={post?.url} alt="post card image" className="post-img" />
+                )}
                 <p>Upvotes: {post.upvotes}</p>
                 <button onClick={() => handleUpvote(post.id)}>Upvote</button>
             </div>
-            <div className="post-edit-btns">
-                <button className="edit-btn">Edit</button>
+            <div id="post-link-holder">
+                <Link className="post-edit-link" id="symptom-back-link" to={`/`}>Back</Link>
+                <Link className="post-edit-link" to={`/${id}/${post.title}/edit`}>Edit</Link>
             </div>
-            
         </>
     )
 };

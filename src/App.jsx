@@ -28,7 +28,7 @@ function App() {
                     <Route path="/search/:query" element={<Home />} />
                     <Route path="/:id/*" element={<Post />} />
                     <Route path="/new" element={<CreatePost />} />
-                    <Route path="/:id/edit" element={<EditPost />} />
+                    <Route path="/:id/:title/edit" element={<EditPost />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
@@ -36,4 +36,4 @@ function App() {
     )
 }
 
-export default App
+export default App;
