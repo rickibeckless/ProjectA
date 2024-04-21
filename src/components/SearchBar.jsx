@@ -8,6 +8,7 @@ const SearchBar = () => {
 
     const { id } = useParams();
     let [searchInput, setSearchInput] = useState('');
+    let [postResults, setPostResults] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {        
@@ -23,11 +24,12 @@ const SearchBar = () => {
                     }
                     
                     navigate('/', { state: { searchResults: data } });
+                    setPostResults(data);
                 } else {
                     let data = [];
                     navigate('/', { state: { searchResults: data } });
+                    setPostResults([]);
                 }
-                console.log(data);
             } catch (error) {
                 console.error("Error fetching posts:", error.message);
             }  
@@ -40,13 +42,17 @@ const SearchBar = () => {
 
     const handleSearch = (e) => {
         setSearchInput(e.target.value);
-        console.log(searchInput);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(searchInput);
-        navigate(`/${id}/${searchInput}`);
+        if (postResults.length > 0) {
+            const firstResultId = postResults[0].id;
+            const firstResultTitle = postResults[0].title;
+            navigate(`/${firstResultId}/${firstResultTitle}`);
+        } else {
+            console.log("No results found");
+        }
     };
 
     return (

@@ -72,8 +72,6 @@ export function Home() {
         setSortBy(e.target.value);
     };
 
-    console.log("search results in home page", searchResults);
-
     return (
         <>
             <h1 className="page-title">Project A</h1>
