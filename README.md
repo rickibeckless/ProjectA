@@ -4,7 +4,7 @@ Submitted by: **Ricki Beckless**
 
 This web app: **insert description**
 
-Time spent: **24** hours spent in total
+Time spent: **25** hours spent in total
 
 ## Required Features
 

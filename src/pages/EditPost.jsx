@@ -16,6 +16,7 @@ export function EditPost () {
     const [editedMedia, setEditedMedia] = useState('');
     const [editedFile, setEditedFile] = useState(null);
     const [editedUrl, setEditedUrl] = useState('');
+    const [edit_date, setEditDate] = useState('');
 
     const fetchPost = async () => {
         try {
@@ -34,6 +35,7 @@ export function EditPost () {
             if (!editedMedia) setEditedMedia(data?.media || '');
             if (!editedFile) setEditedFile(data?.file || null);
             if (!editedUrl) setEditedUrl(data?.url || '');
+            if (!edit_date) setEditDate(data?.updated_at || '');
         } catch (error) {
             console.error("Error fetching posts:", error.message);
         }
@@ -77,7 +79,8 @@ export function EditPost () {
                 content: editedContent,
                 media: editedMedia,
                 file: editedFile,
-                url: editedUrl
+                url: editedUrl,
+                updated_at: new Date()
             }).eq('id', id);
 
             if (error) {
