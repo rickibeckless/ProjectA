@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../App';
 import axios from 'axios';
 
-const PostResponseCard = () => {
+const PostResponseCard = ({ postId, onUpdate }) => {
 
-    const { id } = useParams();
+    const { id } = postId ? { id: postId } : useParams;
     const [post, setPost] = useState([]);
     const [comment, setComment] = useState([]);
     const [comment_username, setCommentUsername] = useState('');
@@ -13,6 +13,7 @@ const PostResponseCard = () => {
     const [relation_id, setRelationId] = useState('');
 
     useEffect(() => {
+        if (!postId) return;
         const fetchPost = async () => {
             try {
                 const { data, error } = await supabase
@@ -30,8 +31,6 @@ const PostResponseCard = () => {
             }  
         };
 
-        fetchPost();
-
         const fetchComment = async () => {
             try {
                 const { data, error } = await supabase
@@ -46,6 +45,7 @@ const PostResponseCard = () => {
             }  
         };
 
+        fetchPost();
         fetchComment();
     }, [supabase, id]);
 
@@ -74,6 +74,7 @@ const PostResponseCard = () => {
             setCommentUsername('');
             setCommentContent('');
             console.log("Comment created successfully");
+            onUpdate();
         } catch (error) {
             console.error("Error creating comment:", error.message);
         }
@@ -85,7 +86,7 @@ const PostResponseCard = () => {
                 <div className="post-new-comment">
                     <form onSubmit={handleCommentSubmit}>
                         <input type="text" id="new-comment-username" placeholder="Username" value={comment_username} onChange={(e) => setCommentUsername(e.target.value)} />
-                        <input type="text" id="new-comment-input" placeholder="Write a comment..." value={comment_content} onChange={(e) => setCommentContent(e.target.value)} />
+                        <textarea id="new-comment-input" placeholder="Write a comment..." maxLength={"200"} value={comment_content} onChange={(e) => setCommentContent(e.target.value)}></textarea>
                         <button className="new-comment-btn">Post Comment</button>
                     </form>
                 </div>

@@ -1,11 +1,14 @@
-import { Link, Routes, Route, useLocation } from 'react-router-dom';
+import { Link, Routes, Route, useLocation, useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../App';
 import axios from 'axios';
+import PostResponseCard from '../components/PostResponseCard';
 
 export function Home() {
 
+    const { id } = useParams();
     const [post, setPost] = useState([]);
+    const [comment, setComment] = useState([]);
     const [sortBy, setSortBy] = useState('sort_date');
 
     const location = useLocation();
@@ -37,7 +40,22 @@ export function Home() {
                 console.error("Error fetching posts:", error.message);
             }  
         };
-    
+
+        const fetchComment = async () => {
+            try {
+                const { data: commentData, error: commentError } = await supabase
+                    .from('Comments')
+                    .select('*')
+                if (commentError) {
+                    throw commentError;
+                }
+                setComment(commentData);
+            } catch (error) {
+                console.error("Error fetching posts:", error.message);
+            }
+        };
+
+        fetchComment();
         fetchPost();
     }, [supabase, sortBy]);
 
@@ -71,6 +89,20 @@ export function Home() {
         setSortBy(e.target.value);
     };
 
+    const handleCommentUpdate = async () => {
+        try {
+            const { data: commentData, error: commentError } = await supabase
+                .from('Comments')
+                .select('*')
+            if (commentError) {
+                throw commentError;
+            }
+            setComment(commentData);
+        } catch (error) {
+            console.error("Error fetching posts:", error.message);
+        }
+    };
+
     return (
         <>
             <h1 className="page-title">Project A</h1>
@@ -96,29 +128,41 @@ export function Home() {
                     </select>
                 </div>
                 {post.slice().map(post => (
-                    <div className="post-card" key={post.id}>
-                        <div className="post-card-heading">
-                            <p className="post-user">{post?.username}</p>
-                            <p className="date-posted">{formatDate(post.created_at)}</p>
-                            <p className="time-posted">{formatTime(post.created_at)}</p>
-                        </div>
-                        <div className="post-content">
-                            <Link key={post.id} to={`/${post.id}/${encodeURIComponent(post.title)}`}>
-                                <h3 className="post-title">{post.title}</h3>
-                            </Link>
+                    <div key={post.id} className="post-comment-holder">
+                        <Link to={`/${post.id}/${encodeURIComponent(post.title)}`}>
+                            <div className="post-card" key={post.id}>
+                                <div className="post-card-heading">
+                                    <p className="post-user">{post?.username}</p>
+                                    <p className="date-posted">{formatDate(post.created_at)}</p>
+                                    <p className="time-posted">{formatTime(post.created_at)}</p>
+                                </div>
+                                <div className="post-content">
+                                    <h3 className="post-title">{post.title}</h3>
 
-                            {post?.media === "file" && (
-                                <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-img" />
-                            )}
-                            {post?.media === "url" && (
-                                <img src={post?.url} alt="post card image" className="post-img" />
-                            )}
+                                    {post?.media === "file" && (
+                                        <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-img" />
+                                    )}
+                                    {post?.media === "url" && (
+                                        <img src={post?.url} alt="post card image" className="post-img" />
+                                    )}
 
-                            <p className="post-text">{post.content}</p>
-                        </div>
-                        <div className="post-votes">
-                            <p>Upvotes: {post.upvotes}</p>
-                            <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
+                                    <p className="post-text">{post.content}</p>
+                                </div>
+                                <div className="post-votes">
+                                    <p>Upvotes: {post.upvotes}</p>
+                                    <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
+                                </div>
+                                <p>Comments: {comment.filter(c => c.post_id === post.id).length}</p>
+                            </div>
+                        </Link>
+                        <div className="post-comment-display">
+                            {comment.filter(c => c.post_id === post.id).map(index => (
+                                <div key={index.id} className="comment">
+                                    <h4 className="comment-user">{index.comment_username}</h4>
+                                    <p className="comment-content">{index.comment_content}</p>
+                                </div>
+                            ))}
+                            <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} />
                         </div>
                     </div>
                 ))}

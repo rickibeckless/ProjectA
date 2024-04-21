@@ -5,6 +5,18 @@
     align-content: center;
 }
 
+.post-card-holder a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.post-comment-holder {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+
+    width: 60vw;
+}
+
 .post-card {
     display: flex;
     flex-direction: column;
@@ -15,7 +27,7 @@
     background-color: #f2fffa;
     border: 2px solid black;
 
-    width: 50vw;
+    /*width: 50vw;*/
     min-height: 40vh;
     max-height: 80vh;
     overflow-y: scroll;

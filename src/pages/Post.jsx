@@ -91,6 +91,21 @@ export function Post () {
         }
     };
 
+    const handleCommentUpdate = async () => {
+        try {
+            const { data: commentData, error: commentError } = await supabase
+                .from('Comments')
+                .select('*')
+                .eq('post_id', id);
+            if (commentError) {
+                throw commentError;
+            }
+            setComment(commentData);
+        } catch (error) {
+            console.error("Error fetching posts:", error.message);
+        }
+    };
+
     return (
         <>
             <h1 className="page-title">Post Page</h1>
@@ -129,7 +144,7 @@ export function Post () {
                 </div>
             </div>
 
-            <PostResponseCard />
+            <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} />
         </>
     )
 };
