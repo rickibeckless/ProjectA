@@ -25,11 +25,12 @@ function App() {
             <div id="main-body">
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/search/:query" element={<Home />} />
                     <Route path="/:id/*" element={<Post />} />
                     <Route path="/new" element={<CreatePost />} />
                     <Route path="/:id/edit" element={<EditPost />} />
                     <Route path="*" element={<NotFound />} />
-                </Routes>                
+                </Routes>
             </div>
         </>
     )

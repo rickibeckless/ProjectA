@@ -55,7 +55,6 @@ export function Post () {
                 .from('Posts')
                 .update({ upvotes: updatedUpvotes })
                 .eq('id', id);
-
             if (error) {
                 throw error;
             }

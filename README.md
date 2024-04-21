@@ -4,7 +4,7 @@ Submitted by: **Ricki Beckless**
 
 This web app: **insert description**
 
-Time spent: **8** hours spent in total
+Time spent: **20** hours spent in total
 
 ## Required Features
 
@@ -16,7 +16,7 @@ The following **required** functionality is completed:
 - [X] **By default, the time created, title, and number of upvotes for each post is shown on the feed**
 - [X] **Clicking on a post shall direct the user to a new page for the selected post**
 - [X] **Users can sort posts by either their created time or upvotes count**
-- [ ] **Users can search for posts by title**
+- [X] **Users can search for posts by title**
 - [ ] **A separate post page for each created post, where any additional information is shown is linked whenever a user clicks a post**
 - [ ] **Users can leave comments underneath a post on the post's separate page**
 - [X] **Each post should have an upvote button on the post's page. Each click increases its upvotes count by one and users can upvote any number of times**
