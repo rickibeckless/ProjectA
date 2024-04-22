@@ -12,14 +12,18 @@
 
 .post-comment-holder {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
 
-    width: 65vw;
+    width: 55vw;
     min-height: 40vh;
-    max-height: 80vh;
+    max-height: 60vh;
+
     overflow-y: scroll;
 
     margin: 2%;
+
+    background-color: #f2fffa;
+    border: 2px solid black;
 }
 
 .post-comment-holder.default {
@@ -29,39 +33,84 @@
 .post-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     flex-wrap: wrap;
-    align-items: center;
 
-    background-color: #f2fffa;
-    border: 2px solid black;
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
 
-    min-height: 40vh;
-    max-height: 80vh;
-    overflow-y: scroll;
+    width: 100%;
+}
 
-    margin: 0 2%;
-    padding: 2%;
+.post-card-heading {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.post-created-stats {
+    
+}
+
+.post-created-stats p {
+
+}
+
+.post-user {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.post-img-holder {
+    height: 30vh;
+    width: 30vw;
+
 }
 
 .post-img {
-    min-width: 40vh;
+    /* min-width: 40vh;
     max-width: 90%;
-    height: 40vh;
+    height: 40vh; */
+
+    height: 30vh;
+    max-width: 30vw;
 }
 
 .post-comment-display {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-wrap: nowrap;
 
     background-color: #f2fffa;
-    border: 2px solid black;
 
     overflow-y: scroll;
 
     margin: 2%;
-    padding: 2%;
+    padding: 0 2%;
+
+    max-height: 58vh;
+}
+
+.post-comment-display .comment {
+    border: 2px solid black;
+    margin-bottom: 1rem;
+}
+
+.post-response-card {
+    display: flex;
+    flex-direction: column;
+
+    background-color: #f2fffa;
+    position: sticky;
+    bottom: 0;
+    right: 0;
+
+    padding: 2vh;
+}
+
+.new-comment-btn {
+    margin-left: auto;
 }

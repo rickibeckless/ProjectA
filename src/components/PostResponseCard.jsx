@@ -82,15 +82,11 @@ const PostResponseCard = ({ postId, onUpdate }) => {
 
     return (
         <>
-            <div className="post-response-card">
-                <div className="post-new-comment">
-                    <form onSubmit={handleCommentSubmit}>
-                        <input type="text" id="new-comment-username" placeholder="Username" value={comment_username} onChange={(e) => setCommentUsername(e.target.value)} />
-                        <textarea id="new-comment-input" placeholder="Write a comment..." maxLength={"200"} value={comment_content} onChange={(e) => setCommentContent(e.target.value)}></textarea>
-                        <button className="new-comment-btn">Post Comment</button>
-                    </form>
-                </div>
-            </div>
+            <form className="post-response-card" onSubmit={handleCommentSubmit}>
+                <input type="text" id="new-comment-username" placeholder="Username" value={comment_username} onChange={(e) => setCommentUsername(e.target.value)} />
+                <textarea id="new-comment-input" placeholder="Write a comment..." maxLength={"200"} value={comment_content} onChange={(e) => setCommentContent(e.target.value)}></textarea>
+                <button className="new-comment-btn">Comment</button>
+            </form>
         </>
     );
 };

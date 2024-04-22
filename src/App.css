@@ -46,3 +46,7 @@
     min-height: 100dvh;
     margin-top: 9dvh;
 }
+
+body {
+    background-color: #dbe9ee;
+}

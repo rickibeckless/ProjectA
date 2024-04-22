@@ -180,27 +180,33 @@ export function Home() {
                             <Link to={`/${post.id}/${encodeURIComponent(post.title)}`}>
                                 <div className="post-card" key={post.id}>
                                     <div className="post-card-heading">
-                                        <p className="post-user">{post?.username}</p>
-                                        <p className="date-posted">{formatDate(post.created_at)}</p>
-                                        <p className="time-posted">{formatTime(post.created_at)}</p>
+                                        <div className="post-created-stats">
+                                            <p className="post-user">{post?.username}</p>
+                                            <p className="date-posted">{formatDate(post.created_at)}</p>
+                                            <p className="time-posted">{formatTime(post.created_at)}</p>                                            
+                                        </div>
+                                        <div className="post-received-stats">
+                                            <div className="post-votes">
+                                                <p>Upvotes: {post.upvotes}</p>
+                                                <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
+                                            </div>
+                                            <p>Comments: {comment.filter(c => c.post_id === post.id).length}</p>                                        
+                                        </div>
                                     </div>
-                                    <div className="post-content">
-                                        <h3 className="post-title">{post.title}</h3>
 
+                                    <div className="post-img-holder">
                                         {post?.media === "file" && (
                                             <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-img" />
                                         )}
                                         {post?.media === "url" && (
                                             <img src={post?.url} alt="post card image" className="post-img" />
                                         )}
+                                    </div>
 
+                                    <div className="post-content">
+                                        <h3 className="post-title">{post.title}</h3>
                                         <p className="post-text">{post.content}</p>
                                     </div>
-                                    <div className="post-votes">
-                                        <p>Upvotes: {post.upvotes}</p>
-                                        <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
-                                    </div>
-                                    <p>Comments: {comment.filter(c => c.post_id === post.id).length}</p>
                                 </div>
                             </Link>
                             <div className="post-comment-display">
