@@ -2,6 +2,7 @@
 @import url('./css/CreatePostStyles.css');
 @import url('./css/PostListStyles.css');
 @import url('./css/EditPostStyles.css');
+@import url('./css/PostStyles.css');
 
 /* NAVBAR STYLES */
 
@@ -37,6 +38,14 @@
     font-weight: 300;
 }
 
+.navbar-links {
+    transition: all 0.5s ease-in-out;
+}
+
+.navbar-links:hover {
+    font-weight: 300;
+    letter-spacing: 5px;
+}
 
 /* MAIN BODY STYLES */
 

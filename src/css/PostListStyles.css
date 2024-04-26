@@ -20,7 +20,7 @@
     margin: 2%;
 
     background-color: #f2fffa;
-    border: 2px solid black;
+    border: 2px solid #023436;
 
     position: relative;
 }
@@ -40,6 +40,7 @@
     align-items: center;
 
     width: 100%;
+    border-right: 3px solid #02343638;
 }
 
 .post-card > * {
@@ -53,7 +54,7 @@
     align-items: flex-end;
 }
 
-.post-received-stats, .post-card-heading {
+.post-response-stats, .post-card-heading {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -70,24 +71,6 @@
 
 .post-content {
     width: 85%;
-}
-
-.post-title {
-    font-size: 1.5rem;
-    text-align: center;
-    color: #023436;
-
-    border-left: 6px solid #023436;
-    border-right: 6px solid #023436;
-
-    margin: 0 2rem;
-
-    padding: 0 1rem;
-}
-
-.post-text {
-    font-size: 1.1rem;
-    margin: 1rem 0;
 }
 
 .post-img-holder {
@@ -132,11 +115,35 @@
     font-size: 5rem;
 }
 
+.post-title {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #023436;
+
+    border-left: 6px solid #023436;
+    border-right: 6px solid #023436;
+
+    margin: 0 2rem;
+
+    padding: 0 1rem;
+
+    transition: font-size 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.post-title:hover {
+    font-size: 1.8rem;
+    color: #000000;
+}
+
+.post-text {
+    font-size: 1.1rem;
+    margin: 1rem 0;
+}
+
 .post-comment-display {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
 
     background-color: #f2fffa;
 
@@ -169,7 +176,7 @@
     margin-left: auto;
 }
 
-.post-response-card {
+.post-response-card-holder {
     display: flex;
     flex-direction: column;
 
@@ -178,7 +185,8 @@
     bottom: 0;
     right: 0;
 
-    padding: 1vh 0;
+    margin-top: auto;
+    padding-top: 1vh;
 }
 
 .response-btns {

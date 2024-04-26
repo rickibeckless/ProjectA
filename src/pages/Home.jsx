@@ -208,7 +208,7 @@ export function Home() {
                                     </Link>
                                 </div>
 
-                                <div className="post-received-stats">
+                                <div className="post-response-stats">
                                     <div className="post-votes">
                                         <p>Upvotes: {post.upvotes}</p>
                                     </div>
@@ -225,7 +225,10 @@ export function Home() {
                                         </p>
                                     </div>
                                 ))}
-                                <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} handleUpvote={handleUpvote} />
+
+                                <div className="post-response-card-holder">
+                                    <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} handleUpvote={handleUpvote} />
+                                </div>
                             </div>
                         </div>
                     ))}

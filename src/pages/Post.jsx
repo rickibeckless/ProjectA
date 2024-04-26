@@ -108,32 +108,41 @@ export function Post () {
 
     return (
         <>
-            <h1 className="page-title">Post Page</h1>
-            <p className="page-summary" id="home-page-summary"></p>
-
-            <div>
-                <p>Posted by {post.username} on {formatDate(post.created_at)} at {formatTime(post.created_at)}</p>
-                {post?.updated_at != null && post.updated_at !== post.created_at && (
-                    <p>Last Updated: {formatDate(post.updated_at)} at {formatTime(post.updated_at)}</p>
-                )}
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-                {post?.media === "file" && (
-                    <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-img" />
-                )}
-                {post?.media === "url" && (
-                    <img src={post?.url} alt="post card image" className="post-img" />
-                )}
-                <p>Upvotes: {post.upvotes}</p>
+            <div id="post-page-header">
+                <h1 id="post-page-title">{post.title}</h1>
+                <p id="post-page-stats">
+                    Posted by <span>{post.username} </span>
+                    on <span>{formatDate(post.created_at)} </span> 
+                    at <span>{formatTime(post.created_at)}</span> 
+                </p>
             </div>
-            <div id="post-link-holder">
-                <Link className="post-edit-link" id="symptom-back-link" to={`/`}>Back</Link>
-                <Link className="post-edit-link" to={`/${id}/${post.title}/edit`}>Edit</Link>
-            </div>
+           
+            <div id="post-page-contents">
+                <div className="post-page-post">
+                    <div className="post-page-response-stats">
+                        <p className="vote-count">Upvotes: {post.upvotes}</p>
+                        <p className="comment-count">Comments: {comment?.length}</p>
+                    </div>
+                    
+                    <p className="post-page-content">{post.content}</p>
 
-            <div className="post-comments">
-                <p className="comment-count">{comment?.length}</p>
-                <div className="comment-holder">
+                    {post?.media && (
+                        <div className="post-page-img-holder">
+                            {post?.media === "file" && (
+                                <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-page-img" />
+                            )}
+                            {post?.media === "url" && (
+                                <img src={post?.url} alt="post card image" className="post-page-img" />
+                            )}                            
+                        </div>
+                    )}
+
+                    {post?.updated_at != null && post.updated_at !== post.created_at && (
+                        <p id="post-page-updated">Last Updated: {formatDate(post.updated_at)} at {formatTime(post.updated_at)}</p>
+                    )}
+                </div>
+
+                <div className="post-comments">
                     {comment?.map(index => (
                         <div key={index.id} className="comment">
                             <h4 className="comment-user">{index.comment_username}</h4>
@@ -141,9 +150,13 @@ export function Post () {
                         </div>
                     ))}
                 </div>
-            </div>
 
-            <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} handleUpvote={handleUpvote} />
+                <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} handleUpvote={handleUpvote} />
+            </div>
+            <div id="post-link-holder">
+                <Link className="post-link" id="symptom-back-link" to={`/`}>Back</Link>
+                <Link className="post-link" to={`/${id}/${post.title}/edit`}>Edit</Link>
+            </div>
         </>
     )
 };
