@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../App';
 import axios from 'axios';
 
-const PostResponseCard = ({ postId, onUpdate }) => {
+const PostResponseCard = ({ postId, onUpdate, handleUpvote }) => {
 
-    const { id } = postId ? { id: postId } : useParams;
+    const { id } = postId ? { id: postId } : useParams();
     const [post, setPost] = useState([]);
     const [comment, setComment] = useState([]);
     const [comment_username, setCommentUsername] = useState('');
@@ -82,11 +82,14 @@ const PostResponseCard = ({ postId, onUpdate }) => {
 
     return (
         <>
-            <form className="post-response-card" onSubmit={handleCommentSubmit}>
+            <div className="post-response-card">
                 <input type="text" id="new-comment-username" placeholder="Username" value={comment_username} onChange={(e) => setCommentUsername(e.target.value)} />
                 <textarea id="new-comment-input" placeholder="Write a comment..." maxLength={"200"} value={comment_content} onChange={(e) => setCommentContent(e.target.value)}></textarea>
-                <button className="new-comment-btn">Comment</button>
-            </form>
+                <div className="response-btns">
+                    <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
+                    <button className="new-comment-btn" onClick={handleCommentSubmit}>Comment</button>                    
+                </div>
+            </div>
         </>
     );
 };

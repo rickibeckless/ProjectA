@@ -121,6 +121,10 @@ export function Home() {
         }
     };
 
+    const handlePostImageClick = (e) => {
+        e.currentTarget.classList.toggle('expanded');
+    };
+
     return (
         <>
             <h1 className="page-title">Project A</h1>
@@ -177,24 +181,17 @@ export function Home() {
                 <div className="post-card-holder">
                     {post.slice().map(post => (
                         <div key={post.id} className="post-comment-holder">
-                            <Link to={`/${post.id}/${encodeURIComponent(post.title)}`}>
-                                <div className="post-card" key={post.id}>
-                                    <div className="post-card-heading">
-                                        <div className="post-created-stats">
-                                            <p className="post-user">{post?.username}</p>
-                                            <p className="date-posted">{formatDate(post.created_at)}</p>
-                                            <p className="time-posted">{formatTime(post.created_at)}</p>                                            
-                                        </div>
-                                        <div className="post-received-stats">
-                                            <div className="post-votes">
-                                                <p>Upvotes: {post.upvotes}</p>
-                                                <button className="upvote-btn" onClick={() => handleUpvote(post.id)}>Upvote</button>
-                                            </div>
-                                            <p>Comments: {comment.filter(c => c.post_id === post.id).length}</p>                                        
-                                        </div>
+                            <div className="post-card" key={post.id}>
+                                <div className="post-card-heading">
+                                    <h2 className="post-user">{post?.username}</h2>
+                                    <div className="post-created-stats">
+                                        <p className="date-posted">{formatDate(post.created_at)}</p>
+                                        <p className="time-posted">{formatTime(post.created_at)}</p>
                                     </div>
+                                </div>
 
-                                    <div className="post-img-holder">
+                                {post?.media && (
+                                    <div className="post-img-holder" onClick={handlePostImageClick}>
                                         {post?.media === "file" && (
                                             <img src={`data:image/png;base64,${post.file}`} alt="post card image" className="post-img" />
                                         )}
@@ -202,21 +199,33 @@ export function Home() {
                                             <img src={post?.url} alt="post card image" className="post-img" />
                                         )}
                                     </div>
+                                )}
 
-                                    <div className="post-content">
+                                <div className="post-content">
+                                    <Link to={`/${post.id}/${encodeURIComponent(post.title)}`}>
                                         <h3 className="post-title">{post.title}</h3>
                                         <p className="post-text">{post.content}</p>
-                                    </div>
+                                    </Link>
                                 </div>
-                            </Link>
+
+                                <div className="post-received-stats">
+                                    <div className="post-votes">
+                                        <p>Upvotes: {post.upvotes}</p>
+                                    </div>
+                                    <p>Comments: {comment.filter(c => c.post_id === post.id).length}</p>                                        
+                                </div>
+                            </div>
                             <div className="post-comment-display">
-                                {comment.filter(c => c.post_id === post.id).map(index => (
+                                {comment.filter(c => c.post_id === post.id).reverse().map(index => (
                                     <div key={index.id} className="comment">
                                         <h4 className="comment-user">{index.comment_username}</h4>
-                                        <p className="comment-content">{index.comment_content}</p>
+                                        <p className="comment-content">
+                                            {index.comment_content}
+                                            <span className="comment-created">{formatTime(index.created_at)}</span>
+                                        </p>
                                     </div>
                                 ))}
-                                <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} />
+                                <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} handleUpvote={handleUpvote} />
                             </div>
                         </div>
                     ))}

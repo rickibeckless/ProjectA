@@ -125,7 +125,6 @@ export function Post () {
                     <img src={post?.url} alt="post card image" className="post-img" />
                 )}
                 <p>Upvotes: {post.upvotes}</p>
-                <button onClick={() => handleUpvote(post.id)}>Upvote</button>
             </div>
             <div id="post-link-holder">
                 <Link className="post-edit-link" id="symptom-back-link" to={`/`}>Back</Link>
@@ -144,7 +143,7 @@ export function Post () {
                 </div>
             </div>
 
-            <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} />
+            <PostResponseCard postId={post.id} onUpdate={handleCommentUpdate} handleUpvote={handleUpvote} />
         </>
     )
 };
