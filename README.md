@@ -42,7 +42,9 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3hvdzd4emlvZmx1NW4yNjY2YmU5cDJiMnF3ODNyem5jeGhiMTNlaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sfCKmuMoeEZ4rxkW2M/giphy.gif' title='Project A Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF also found at [Project A](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3hvdzd4emlvZmx1NW4yNjY2YmU5cDJiMnF3ODNyem5jeGhiMTNlaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sfCKmuMoeEZ4rxkW2M/giphy.gif) on GIPHY
 
 GIF created with ...  
 [ScreenToGif](https://www.screentogif.com/) for Windows

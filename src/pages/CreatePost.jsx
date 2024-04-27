@@ -140,7 +140,7 @@ export function CreatePost() {
                     <p>One last thing so you can edit your post later...</p>
                     <div className="form-input-holder">
                         <label htmlFor="post-passcode">Create Passcode (4 digits)</label>
-                        <input className="form-input-field" type="password" id="post-passcode" pattern="\d{4}" maxLength="4" value={passcode} onChange={(e) => setPasscode(e.target.value)} pattern="\d{4}" required />
+                        <input className="form-input-field" type="password" id="post-passcode" pattern="\d{4}" maxLength="4" value={passcode} onChange={(e) => setPasscode(e.target.value)} required />
                     </div>
                 </div>
 
