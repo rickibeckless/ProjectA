@@ -138,7 +138,7 @@ export function EditPost () {
     };
 
     return (
-        <>
+        <div className="create-post-form-holder">
             <h1 className="page-title">Edit {post.title}</h1>
 
             <div className="posts-holder">
@@ -159,20 +159,26 @@ export function EditPost () {
             <label htmlFor="edit-passcode" id="edit-passcode-label">Enter passcode to edit post</label>
             <input type="password" id="edit-passcode" name="edit-passcode" pattern="\d{4}" maxLength="4" placeholder="Enter passcode" onChange={handlePassCode} />
 
-            <form id="edit-post-form" className={`${PassCode ? '' : 'no-passcode'}`}>
-                <label htmlFor="edit-title" id="edit-title-label">Title</label>
-                <input type="text" id="edit-title" name="edit-title" onChange={(e) => setEditedTitle(e.target.value)} />
+            <form id="edit-post-form" className={`${PassCode ? '' : 'no-passcode'} create-post-form`}>
+                <div className="form-input-holder">
+                    <label htmlFor="edit-title" id="edit-title-label">Title</label>
+                    <input className="form-input-field" type="text" id="edit-title" name="edit-title" onChange={(e) => setEditedTitle(e.target.value)} />                    
+                </div>
 
-                <label htmlFor="edit-content" id="edit-content-label">Content</label>
-                <textarea id="edit-content" name="edit-content" onChange={(e) => setEditedContent(e.target.value)}></textarea>
+                <div className="form-input-holder">
+                    <label htmlFor="edit-content" id="edit-content-label">Content</label>
+                    <textarea className="form-input-field" id="edit-content" name="edit-content" onChange={(e) => setEditedContent(e.target.value)}></textarea>                    
+                </div>
 
-                <button type="submit" id="edit-post-button" onClick={handleUpdate}>Update Post</button>
-                <button type="button" id="delete-post-button" onClick={handleDelete}>Delete Post</button>
+                <div className="create-post-btn-holder">
+                    <button type="submit" id="edit-post-button" onClick={handleUpdate}>Update Post</button>
+                    <button type="button" id="delete-post-button" onClick={handleDelete}>Delete Post</button>                    
+                </div>
             </form>
 
             <div className={`post-comments ${PassCode ? '' : 'no-passcode'}`}>
                 <p className="comment-count">{comment?.length} Total Comments</p>
-                <div className="comment-holder">
+                <div className="comment-holder post-page-comments">
                     {comment?.map(index => (
                         <div key={index.id} className="comment">
                             <h4 className="comment-user">{index.comment_username}</h4>
@@ -182,6 +188,6 @@ export function EditPost () {
                     ))}
                 </div>
             </div>
-        </>
+        </div>
     )
 };

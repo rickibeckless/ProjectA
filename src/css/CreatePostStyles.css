@@ -1,12 +1,13 @@
-#create-post-form-holder {
+.create-post-form-holder {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     min-height: 91vh;
 }
 
-#create-post-form {
+.create-post-form {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -86,4 +87,9 @@
 
 #create-post-btn {
     margin-left: auto;
+}
+
+.create-post-btn-holder {
+    display: flex;
+    justify-content: space-between;
 }

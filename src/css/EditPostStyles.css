@@ -9,3 +9,13 @@
     border: none;
     color: #fffcf2;
 }
+
+.posts-holder {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    width: 60vw;
+}

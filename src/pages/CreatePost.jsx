@@ -79,8 +79,8 @@ export function CreatePost() {
     };
 
     return (
-        <div id="create-post-form-holder">
-            <form id="create-post-form" onSubmit={handleSubmit}>
+        <div className="create-post-form-holder">
+            <form className="create-post-form" onSubmit={handleSubmit}>
                 <div className="form-input-holder">
                     <label htmlFor="post-author">Username</label>
                     <input className="form-input-field" type="text" id="post-author" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username..." required />                    
