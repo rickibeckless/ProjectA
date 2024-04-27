@@ -1,5 +1,11 @@
 .no-passcode {
-    opacity: 0.5;
+    opacity: 0;
     pointer-events: none;
     display: none;
+}
+
+#delete-comment-button, #delete-post-button {
+    background-color: #B02E0C;
+    border: none;
+    color: #fffcf2;
 }

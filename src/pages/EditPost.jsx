@@ -140,7 +140,6 @@ export function EditPost () {
     return (
         <>
             <h1 className="page-title">Edit {post.title}</h1>
-            <p className="page-summary" id="home-page-summary"></p>
 
             <div className="posts-holder">
                 <p>Posted by {post.username} on {formatDate(post.created_at)} at {formatTime(post.created_at)}</p>

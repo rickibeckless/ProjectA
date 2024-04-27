@@ -79,67 +79,75 @@ export function CreatePost() {
     };
 
     return (
-        <>
-            <div>
-                <h1 className="page-title">Post</h1>
-                <p className="page-summary">This is where you'll create a new post</p>                
-            </div>
-            <div id="create-post-form-holder">
-                <form id="create-post-form" onSubmit={handleSubmit}>
+        <div id="create-post-form-holder">
+            <form id="create-post-form" onSubmit={handleSubmit}>
+                <div className="form-input-holder">
                     <label htmlFor="post-author">Username</label>
-                    <input type="text" id="post-author" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username..." required />
+                    <input className="form-input-field" type="text" id="post-author" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username..." required />                    
+                </div>
 
+                <div className="form-input-holder">
                     <label htmlFor="post-title">Post Title</label>
-                    <input type="text" id="post-title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Post Title" required />
+                    <input className="form-input-field" type="text" id="post-title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Post Title" required />                    
+                </div>
 
+                <div className="form-input-holder">
                     <label htmlFor="post-content">Post Content</label>
-                    <textarea id="post-content" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Post Content" required></textarea>
+                    <textarea className="form-input-field" id="post-content" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Post Content" required></textarea>                    
+                </div>
 
-                    <div>
+                {!media && (
+                    <div className="form-input-holder">
                         <select id="media-type" value={media} onChange={handleMediaChange}>
                             <option value="" disabled selected>Select Media Type</option>
                             <option value="file">File</option>
                             <option value="url">URL</option>
                         </select>
+                    </div>                    
+                )}
+
+                {media === 'file' && (
+                    <div className="form-input-holder">
+                        <label htmlFor="post-media-image">Select Image File</label>
+                        <input type="file" accept="image/*" id="post-media-image" className="form-input-field create-post-media-img" onChange={(e) => {
+                            setFile(e.target.files[0]);
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                                setImageUrl(reader.result);
+                            };
+                            reader.readAsDataURL(e.target.files[0]);
+                        }} />
                     </div>
+                )}
+                {media === 'url' && (
+                    <div className="form-input-holder">
+                        <label htmlFor="post-media-url">Enter Image URL</label>
+                        <input type="url" id="post-media-url" className="form-input-field create-post-media-img" value={url} onChange={(e) => {
+                            setUrl(e.target.value);
+                            setImageUrl(e.target.value);
+                        }} placeholder="Image URL" />
+                    </div>
+                )}
 
-                    <div>
-                        {media === 'file' && (
-                            <div>
-                                <label htmlFor="post-image">Post Image</label>
-                                <input type="file" accept="image/*" id="post-image" className="post-img" onChange={(e) => {
-                                    setFile(e.target.files[0]);
-                                    const reader = new FileReader();
-                                    reader.onload = () => {
-                                        setImageUrl(reader.result);
-                                    };
-                                    reader.readAsDataURL(e.target.files[0]);
-                                }} />
-                            </div>
-                        )}
-                        {media === 'url' && (
-                            <div>
-                                <label htmlFor="post-url">Post URL</label>
-                                <input type="url" id="post-url" className="post-img" value={url} onChange={(e) => {
-                                    setUrl(e.target.value);
-                                    setImageUrl(e.target.value);
-                                }} placeholder="Image URL" />
-                            </div>
-                        )}
-
+                {imageUrl && (
+                    <div className="form-img-holder">
+                        <img id="create-post-img" src={imageUrl} alt="Post Image" />
                         <button type="button" onClick={removeImage}>Remove Image</button>
                     </div>
+                )}
 
-                    {imageUrl && (
-                        <img src={imageUrl} alt="Post Image" style={{ maxWidth: '300px', maxHeight: '300px' }} />
-                    )}
+                <div className="form-passcode-holder">
+                    <p>One last thing so you can edit your post later...</p>
+                    <div className="form-input-holder">
+                        <label htmlFor="post-passcode">Create Passcode (4 digits)</label>
+                        <input className="form-input-field" type="password" id="post-passcode" pattern="\d{4}" maxLength="4" value={passcode} onChange={(e) => setPasscode(e.target.value)} pattern="\d{4}" required />
+                    </div>
+                </div>
 
-                    <label htmlFor="post-passcode">Passcode (4 digits)</label>
-                    <input type="password" id="post-passcode" value={passcode} onChange={(e) => setPasscode(e.target.value)} pattern="\d{4}" required />
-
+                <div className="create-post-btn-holder">
                     <button type="submit" id="create-post-btn">Create Post</button>
-                </form>                
-            </div>
-        </>
+                </div>
+            </form>
+        </div>
     );
 };

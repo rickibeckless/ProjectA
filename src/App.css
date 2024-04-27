@@ -3,6 +3,7 @@
 @import url('./css/PostListStyles.css');
 @import url('./css/EditPostStyles.css');
 @import url('./css/PostStyles.css');
+@import url('./css/PostResponseStyles.css');
 
 /* NAVBAR STYLES */
 
@@ -52,10 +53,14 @@
 #main-body {
     background-color: #dbe9ee;
 
-    min-height: 100dvh;
+    /* min-height: 100dvh; */
     margin-top: 9dvh;
 }
 
 body {
     background-color: #dbe9ee;
+}
+
+button {
+    cursor: pointer;
 }

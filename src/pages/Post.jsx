@@ -106,6 +106,8 @@ export function Post () {
         }
     };
 
+    const sanitizedTitle = post?.title?.replace(/[^\w\s]/gi, '');
+
     return (
         <>
             <div id="post-page-header">
@@ -133,7 +135,7 @@ export function Post () {
                             )}
                             {post?.media === "url" && (
                                 <img src={post?.url} alt="post card image" className="post-page-img" />
-                            )}                            
+                            )}
                         </div>
                     )}
 
@@ -142,7 +144,7 @@ export function Post () {
                     )}
                 </div>
 
-                <div className="post-comments">
+                <div className="post-page-comments">
                     {comment?.map(index => (
                         <div key={index.id} className="comment">
                             <h4 className="comment-user">{index.comment_username}</h4>
@@ -155,7 +157,7 @@ export function Post () {
             </div>
             <div id="post-link-holder">
                 <Link className="post-link" id="symptom-back-link" to={`/`}>Back</Link>
-                <Link className="post-link" to={`/${id}/${post.title}/edit`}>Edit</Link>
+                <Link className="post-link" to={`/${id}/${sanitizedTitle}/edit`}>Edit</Link>
             </div>
         </>
     )

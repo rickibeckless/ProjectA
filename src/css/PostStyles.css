@@ -28,7 +28,7 @@
     flex-wrap: wrap;
     align-content: center;
 
-    margin-bottom: 6vh;
+    margin-bottom: 12vh;
 }
 
 .post-page-post {
@@ -71,7 +71,7 @@
     flex-direction: column;
 }
 
-.post-comments {
+.post-page-comments {
     display: flex;
     flex-direction: column;
     width: 50vw;
@@ -92,6 +92,9 @@
     
     width: 100vw;
     height: 6vh;
+
+    position: fixed;
+    bottom: 0;
 }
 
 .post-link {

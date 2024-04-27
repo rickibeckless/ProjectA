@@ -2,9 +2,9 @@
 
 Submitted by: **Ricki Beckless**
 
-This web app: **insert description**
+This web app: **Project A is a social media mock-up that allows users to create a post with username, post content, and file or url image. Before posting, users are required to create a four-digit passcode that will be later needed if the user wishes to update or delete a post or comment. Users can also comment and upvote a post. The app also features display options on the home page, on default only the title, created date/time, and upvote count of each post is shown. The expanded view shows the posts username, created date-time, image, title, content, upvote and comment count, and all comments. The expanded view also allows users to upvote and create a comment. Users can select a post to go to the post individual page which shows all post information and allows the user to navigate to the edit page which will only be accessible with the correct passcode. Project A also allows users to search for a post by title via any page, searching while on the home screen and entering will immediately navigate the user to the first results individual post page.**
 
-Time spent: **30** hours spent in total
+Time spent: **40** hours spent in total
 
 ## Required Features
 
